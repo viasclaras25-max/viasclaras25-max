@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vias Claras|Escuelas</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="text/javascript" src="app.js" defer></script>
+  <script type="text/javascript" src="darkmode.js" defer></script>
+  <link rel="stylesheet" href="mapa3.css">
+  <script src="mapa3.js" defer></script>
+  <link rel="shortcut icon" href="C:\Users\Estudiante\Documents\Viasclarasapp\proy.final\viasclaras_logo.png" type="image/x-icon">
+</head>
+  <!-- Mapbox CSS y JS -->
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.css" rel="stylesheet">
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.js"></script>
+</head>
+<body>
+  <nav id="sidebar">
+    <ul>
+      <li>
+           <div class="logo">
+                    <img src="viasclaras_logo.png">
+                    <h2>Vías claras<span class="danger"></h2>
+                </div>
+        <button onclick=toggleSidebar() id="toggle-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="m313-480 155 156q11 11 11.5 27.5T468-268q-11 11-28 11t-28-11L228-452q-6-6-8.5-13t-2.5-15q0-8 2.5-15t8.5-13l184-184q11-11 27.5-11.5T468-692q11 11 11 28t-11 28L313-480Zm264 0 155 156q11 11 11.5 27.5T732-268q-11 11-28 11t-28-11L492-452q-6-6-8.5-13t-2.5-15q0-8 2.5-15t8.5-13l184-184q11-11 27.5-11.5T732-692q11 11 11 28t-11 28L577-480Z"/></svg>
+        </button>
+      </li>
+      <li class="active">
+        <a href="escuelas.html">
+          <svg class="icono-escuela" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M240-200h120v-200q0-17 11.5-28.5T400-440h160q17 0 28.5 11.5T600-400v200h120v-360L480-740 240-560v360Zm-80 0v-360q0-19 8.5-36t23.5-28l240-180q21-16 48-16t48 16l240 180q15 11 23.5 28t8.5 36v360q0 33-23.5 56.5T720-120H560q-17 0-28.5-11.5T520-160v-200h-80v200q0 17-11.5 28.5T400-120H240q-33 0-56.5-23.5T160-200Zm320-270Z"/></svg>
+          <span>Escuelas/Colegios</span>
+        </a>
+      </li>
+      <li class="uni">
+        <a href="universidad.html">
+          <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M480-120 200-272v-240L40-600l440-240 440 240v320h-80v-276l-80 44v240L480-120Zm0-332 274-148-274-148-274 148 274 148Zm0 241 200-108v-151L480-360 280-470v151l200 108Zm0-241Zm0 90Zm0 0Z"/></svg>
+          <span>Universidades</span>
+
+        </a>
+      </li>
+     <li class="active">
+        <a href="restaurantes.html">
+  <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M320-200h60v-270q26-8 43-28.5t17-49.5v-152q0-8-6-14t-14-6q-8 0-14 6t-6 14v100h-30v-100q0-8-6-14t-14-6q-8 0-14 6t-6 14v100h-30v-100q0-8-6-14t-14-6q-8 0-14 6t-6 14v152q0 29 17 49.5t43 28.5v270Zm240 0h60v-254q33-16 51.5-51t18.5-82q0-57-28.5-95T590-720q-43 0-71.5 38T490-587q0 47 18.5 82t51.5 51v254ZM160-80q-33 0-56.5-23.5T80-160v-640q0-33 23.5-56.5T160-880h640q33 0 56.5 23.5T880-800v640q0 33-23.5 56.5T800-80H160Zm0-80h640v-640H160v640Zm0 0v-640 640Z"/></svg>
+          <span>Restaurantes</span>
+        </a>
+        </li>
+      <li>
+        <a href="profile.php.html">
+          <svg class="icono-profile"xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M480-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM160-240v-32q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v32q0 33-23.5 56.5T720-160H240q-33 0-56.5-23.5T160-240Zm80 0h480v-32q0-11-5.5-20T700-306q-54-27-109-40.5T480-360q-56 0-111 13.5T260-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T560-640q0-33-23.5-56.5T480-720q-33 0-56.5 23.5T400-640q0 33 23.5 56.5T480-560Zm0-80Zm0 400Z"/></svg>
+          <span>Contáctanos!</span>
+        </a>
+      </li>
+    <button id="theme-switch">
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"><path d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Z"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"><path d="M480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Z"/></svg>
+    </button>
+    </ul>
+  </nav>
+  <main>
+    <div class="container">
+      <h2><center>Vías Claras: Mejorando la conectividad</center></h2>
+        <!-- Controles de ubicación -->
+      <div class="location-controls">
+        <button id="geolocate-btn">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3c-.46-4.17-3.77-7.48-7.94-7.94V1h-2v2.06C6.83 3.52 3.52 6.83 3.06 11H1v2h2.06c.46 4.17 3.77 7.48 7.94 7.94V23h2v-2.06c4.17-.46 7.48-3.77 7.94-7.94H23v-2h-2.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/>
+          </svg>
+          Mi ubicación actual
+        </button>
+        
+        <select id="location-selector" class="location-selector">
+          <option value="">-- Selecciona una ubicación --</option>
+          <option value="Terminal,8.105003862537949,-80.9736251301062">Terminal de Transporte</option>
+          <option value="Belisario,8.122279076772363,-80.96897139056583">Belisario Villar</option>
+          <option value="Normal J.D.A,8.10146563134557,-80.97899819241609">Escuela Normal J.D.A.</option>
+          <option value="Superate,8.122870925104026,-80.96605216577382">Centro Supérate FSBV</option>
+          <option value="Urraca,8.112526677813051,-80.96730013823775">Instituto Urracá</option>
+          <option value="IPOTH,8.102004718196843,-80.9691192347446">Instituto Profesional Omar Torrijos Herrera</option>
+          <option value="Canovas,8.050147255897217,-80.9406845255221">Juan José Canovas</option>
+          <option value="Inmaculada C.,8.126634213918818,-80.85806187633281">Colegio la Inmaculada Concepción</option>
+          <option value="Puga,8.099191896600997,-80.97242209097548">José Santos Puga</option>
+          <option value="La Peña,8.125840539751952,-81.02010902125151">Colegio Secundario La Peña</option>
+          <option value="La Primavera,8.092458036948013,-80.98002418327455">Escuela La Primavera</option>
+          <option value="La Marina,8.152273499184274,-80.95014410239853">Instituto De Marina Mercante Istmeño</option>
+          <option value="San Vicente,8.093916311612867,-80.98745270628032">Colegio San Vicente de Paúl</option>
+          <option value="Nueva Luz,8.090526176018205,-80.98229008630591">Instituto Nueva Luz</option>
+          <option value="La Nocturna,8.113362770782532,-80.96626456905298">Escuela Secundaria Nocturna Oficial de Santiago</option>
+          <option value="La Moderna,8.15245202062529,-80.95002866021959">Escuela Moderna San Juan</option>
+          <option value="Colegio Laboral C.,8.100885002127276,-80.97593187056204">Colegio Laboral y Computacional Santa María</option>
+          <option value="ILIE,8.109986358113117,-80.9744881215945">ILIE VERAGUAS</option>
+          <option value="Juan Ramon,8.095964753488163,-80.9814904006369">ESCUELA BILINGÜE JUAN RAMÓN</option>
+
+        </select>
+      </div>
+  
+      <!-- Contenedor del mapa -->
+      <div id="map" class="map-container"></div>
+    </div>
+    <!-- Resto de tus contenedores -->
+    </div>
+    <div class="container">
+      <h2>Rutas de Buses desde la Terminal a tu destino</h2>
+        <ul id="info-contenedor"></ul>
+  <script>
+const infoContenedor = document.getElementById('info-contenedor');
+const precioss= document.getElementById('location-selector');
+
+precioss.addEventListener('change', function() {
+  if (!this.value) {
+    infoContenedor.innerHTML = '<li>Selecciona una ubicación para ver las rutas.</li>';
+    return;
+  }
+  const ubicacion = this.value.split(',')[0].trim();
+  let rutas = [];
+  switch(ubicacion) {
+    case 'Terminal':
+      rutas = ['Todas las rutas.'];
+      break;
+    case 'Belisario':
+      rutas = ['Ruta: Canto del LLano (barriada).'];
+      break;
+    case 'Normal J.D.A':
+      rutas = ['Rutas:','Canto del LLano', 'Forestal', 'La Peña', 'Soná', 'La Soledad.'];
+      break;
+    case 'Superate':
+      rutas = ['Rutas:',' Canto del LLano (directo)', 'Santa Fe', 'San Francisco.'];
+      break;
+    case 'Urraca':
+      rutas = ['Rutas:',' Forestal', 'Punta.'];
+      break;
+    case 'IPOTH':
+      rutas = ['Ruta: Forestal (Machetazo)'];
+      break;
+    case 'Canovas':
+      rutas = ['Ruta: Atalaya.'];
+      break;
+    case 'Inmaculada C.':
+      rutas = ['Ruta: La Raya.'];
+      break;
+    case 'Puga':
+      rutas = ['Rutas:',' Forestal (Machetazo)','Punta', 'Atalaya', 'Urb. San Antonio', 'El pedrito', 'Pedernal.'];
+      break;
+    case 'La Peña':
+      rutas = ['Ruta: la Peña '];
+      break;
+    case 'La Primavera':
+      rutas = ['Ruta: Forestal(Machetazo).'];
+      break;
+
+    case'La Marina':
+      rutas=['Rutas: Canto del LLano, Santa Fe, San Francisco, Calobre, La Yeguada'];
+      break;
+    case 'San Vicente':
+      rutas=['Bus aproximado: Pto.Mutis.'];
+      break;
+
+    case 'Nueva Luz':
+      rutas =['Bus aproximado: Pto.Mutis.'];
+      break;
+    case'La Nocturna':
+      rutas=['Ruta: Forestal'];
+      break;
+    case'La Moderna':
+      rutas=['Rutas:',' Canto del LLano', 'Santa Fe', 'San Francisco', 'La Yeguada', 'Calobre'];
+      break;
+    case 'Colegio Laboral C.':
+      rutas=['Rutas:',' Atalaya', 'Pedernal', 'San Antonio'];
+      break;
+    case 'ILIE':
+        rutas=['Ruta: La Soledad'];
+        break;
+    case 'Juan Ramon':
+      rutas=['Rutas:','Canto del LLano','Forestal'];
+      break;
+    default:
+      rutas = [];
+  }
+  if (rutas.length > 0) {
+    infoContenedor.innerHTML = rutas.map(ruta => `<li>${ruta}</li>`).join('');
+  } else {
+    infoContenedor.innerHTML = '<li>No hay información disponible para esta ubicación.</li>';
+  }
+});
+</script>
+    </div>
+    
+    <div class="container">
+      <h2>Precios</h2>
+      <ul id ="preciosCon"></ul>
+    </div>
+    <script>
+  const preciosContenedor = document.getElementById('preciosCon');
+  const selector = document.getElementById('location-selector');
+
+  selector.addEventListener('change', function() {
+    if (!this.value) {
+      preciosContenedor.innerHTML = '<li>Selecciona una ubicación para ver los precios.</li>';
+      return;
+    }
+
+    // Extraemos el nombre de la ubicación (antes de la primera coma)
+    const ubicacion = this.value.split(',')[0].trim();
+
+    let precios = [];
+
+    switch (ubicacion) {
+      case 'Terminal':
+      case 'Belisario':
+      case 'Normal J.D.A':
+      case 'Superate':
+      case 'Urraca':
+      case 'IPOTH':
+      case 'Canovas':
+      case 'Puga':
+      case 'La Primavera':
+      case 'Juan Ramon':
+      case 'San Vicente':
+      case 'ILIE':
+      case'Colegio Laboral C.':
+        precios = [
+          'Precio en uniforme: 0.20 centavos.',
+          'Precio en ropa casual: 0.40 centavos.'
+        ];
+        break;
+      case 'Inmaculada C.':
+  precios = [
+    'Precio en uniforme:0.45 centavos/0.50 centavos.',
+    'Precio en ropa casual: 0.90 centavos/1.00 dólar.'
+  ];
+  break;
+      case 'La Peña':
+      case 'Nueva Luz':
+        precios = [
+          'Precio en uniforme: 0.25/0.30 centavos',
+          'Precio en ropa casual: 0.55 centavos.'
+        ];
+        break;
+      
+      case 'La Marina':
+      case    'La Moderna':
+        precios = [
+          'Precio en uniforme: 0.25 centavos',
+          'Precio en ropa casual: 0.40 centavos.'
+        ];
+        break;
+      case 'La Nocturna':
+        precios =['Precio: 0.40 centavos.']
+      default:
+        precios = ['No hay información disponible para estos precios.'];
+    }
+
+    // Mostrar precios en la lista
+    preciosContenedor.innerHTML = precios.map(precio => `<li>${precio}</li>`).join('');
+  });
+</script>
+  
+        <div class="container">
+      <h2>Tiempo de espera</h2>
+      <ul id="tiemp"></ul>
+    <script>
+  const infotiempo = document.getElementById('tiemp');
+  const tiempo = document.getElementById('location-selector');
+
+  tiempo.addEventListener('change', function() {
+    if (!this.value) {
+      infotiempo.innerHTML = '<li>Selecciona una ubicación para ver las rutas.</li>';
+      return;
+    }
+    const tiempoo = this.value.split(',')[0].trim();
+    let tiempoes = [];
+    switch(tiempoo) {
+      case 'Terminal':
+        tiempoes = ['Tiempo variados, dependiendo de tu ubicación.'];
+        break;
+      case 'Belisario':
+        tiempoes = ['Tiempo estimado: (Barriada: 30 min)'];
+        break;
+      case 'Normal J.D.A':
+        tiempoes = ['Tiempo estimado: (Cada 10 min.)'];
+        break;
+      case 'Superate':
+        tiempoes = ['Tiempo estimado: (Cada 10 min.)'];
+        break;
+      case 'Urraca':
+        tiempoes = ['Tiempo estimado: (Cada 10 min.)'];
+        break;
+      case 'IPOTH':
+        tiempoes = ['Tiempo estimado: (Cada 30 min.)'];
+        break;
+      case 'Canovas':
+        tiempoes = ['Tiempo estimado: (Cada 10 min.)'];
+        break;
+      case 'Inmaculada C.':
+        tiempoes = ['Tiempo estimado:(Cada 1 hora.)'];
+        break;
+      case 'Puga':
+        tiempoes = ['Tiempo estimado: (Cada 10 min.)'];
+        break;
+      case 'La Peña':
+        tiempoes = ['Tiempo estimado: (Cada 30 min.)'];
+        break;
+      case 'La Primavera':
+      case 'ILIE':
+        tiempoes = ['Tiempo estimado: (Cada 30 min.)'];
+        break;
+      case 'La Marina':
+        tiempoes=['Tiempo estimado de espera: (Cada 10 min.)'];
+        break;
+      case 'San Vicente':
+        tiempoes=['Tiempo estimado de espera: (Cada 30 min.)'];
+        break;
+      case 'Nueva Luz':
+        tiempoes=['Tiempo estimado de espera: (Cada 30 min.)'];
+        break;
+      case 'La Nocturna':
+        tiempoes=['Tiempo estimado de espera: (Cada 10 min.)'];
+        break;
+      case 'La Moderna':
+        tiempoes=['Tiempo estimado de espera: (Cada 10 min.)'];
+        break;
+      case 'Colegio Laboral C.':
+        tiempoes=['Tiempo estimado de espera: (Cada 10 min.)'];
+        break;
+      case 'ILIE':
+        tiempoes=['Tiempo estimado de espera: (Cada 30 min.)'];
+        break;
+      case 'Juan Ramon':
+        tiempoes=['Tiempo estimado de espera: (Cada 10 min.)'];
+        break;
+      
+      
+      default:
+        tiempoes = [];
+    }
+    if (tiempoes.length > 0) {
+      infotiempo.innerHTML = tiempoes.map(tiempoe => `<li>${tiempoe}</li>`).join('');
+    } else {
+      infotiempo.innerHTML = '<li>No hay información disponible para esta ubicación.</li>';
+    }
+  });
+</script>
+    </div>
+  </main>
+    <script>
+    // Inicializar Mapbox 
+    mapboxgl.accessToken = 'pk.eyJ1IjoibWFyaWkyMyIsImEiOiJjbTFhM2Q0OG4wODJlMnRvbTQ4a2M3anc0In0.qJTjB1HweqzdnslPp6ocQw';
+    const map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/streets-v12',
+      center: [-80.97, 8.10], // Centro inicial 
+      zoom: 13
+    });
+
+    // Variables para marcadores y ruta
+  let locationMarker = null;
+  let userMarker = null;
+  let userLocation = null;
+  let destinationLocation = null;
+  let routeLayerId = null;
+ 
+  // Control de geolocalización
+  const geolocate = new mapboxgl.GeolocateControl({
+    positionOptions: { enableHighAccuracy: true },
+    trackUserLocation: true,
+    showUserLocation: false
+  });
+  map.addControl(geolocate);
+  map.addControl(new mapboxgl.NavigationControl());
+  map.addControl(new mapboxgl.ScaleControl());
+ 
+  // Botón de geolocalización
+  document.getElementById('geolocate-btn').addEventListener('click', () => {
+    geolocate.trigger();
+  });
+ 
+  // Función para trazar la ruta
+  async function drawRoute(origin, destination) {
+    // Elimina la ruta anterior si existe
+    if (routeLayerId && map.getLayer(routeLayerId)) {
+      map.removeLayer(routeLayerId);
+      map.removeSource(routeLayerId);
+    }
+    // Llama a la API Directions de Mapbox
+    const url = `https://api.mapbox.com/directions/v5/mapbox/driving/${origin.lng},${origin.lat};${destination.lng},${destination.lat}?geometries=geojson&access_token=${mapboxgl.accessToken}`;
+    const response = await fetch(url);
+    const data = await response.json();
+    if (data.routes && data.routes.length > 0) {
+      const route = data.routes[0].geometry;
+      routeLayerId = 'routeLine';
+      map.addSource(routeLayerId, {
+        type: 'geojson',
+        data: {
+          type: 'Feature',
+          properties: {},
+          geometry: route
+        }
+      });
+      map.addLayer({
+        id: routeLayerId,
+        type: 'line',
+        source: routeLayerId,
+        layout: {
+          'line-join': 'round',
+          'line-cap': 'round'
+        },
+        paint: {
+          'line-color': '#3a86ff',
+          'line-width': 5,
+          'line-opacity': 0.85
+        }
+      });
+    } else {
+      alert('No se pudo calcular la ruta.');
+    }
+  }
+ 
+  // Evento de geolocalización exitosa
+  geolocate.on('geolocate', (e) => {
+    userLocation = {
+      lng: e.coords.longitude,
+      lat: e.coords.latitude
+    };
+    // Eliminar marcador anterior si existe
+    if (userMarker) userMarker.remove();
+    // Crear nuevo marcador de usuario
+    userMarker = new mapboxgl.Marker({
+      color: '#4CAF50',
+      draggable: false
+    })
+      .setLngLat([userLocation.lng, userLocation.lat])
+      .setPopup(new mapboxgl.Popup().setHTML('<strong>Tu ubicación</strong>'))
+      .addTo(map);
+    // Centrar mapa en la ubicación del usuario
+    map.flyTo({
+      center: [userLocation.lng, userLocation.lat],
+      zoom: 15
+    });
+    // Si ya hay destino, trazar la ruta
+    if (destinationLocation) {
+      drawRoute(userLocation, destinationLocation);
+    }
+  });
+ 
+  // Manejar cambios en el selector de ubicaciones
+  document.getElementById('location-selector').addEventListener('change', function(e) {
+    if (!e.target.value) return;
+    const [name, lat, lng] = e.target.value.split(',');
+    destinationLocation = {
+      lat: parseFloat(lat),
+      lng: parseFloat(lng)
+    };
+    // Animación para moverse al nuevo lugar
+    map.flyTo({
+      center: [destinationLocation.lng, destinationLocation.lat],
+      zoom: 15,
+      essential: true
+    });
+    // Eliminar marcador anterior si existe
+    if (locationMarker) locationMarker.remove();
+    // Crear nuevo marcador con popup
+    locationMarker = new mapboxgl.Marker({
+      color: '#3a86ff',
+      draggable: false
+    })
+      .setLngLat([destinationLocation.lng, destinationLocation.lat])
+      .setPopup(new mapboxgl.Popup().setHTML(`<strong>${name}</strong><br>${e.target.options[e.target.selectedIndex].text}`))
+      .addTo(map);
+    // Abrir popup automáticamente
+    locationMarker.togglePopup();
+    // Si ya hay ubicación del usuario, trazar la ruta
+    if (userLocation) {
+      drawRoute(userLocation, destinationLocation);
+    }
+  });
+ 
+  // Cargar mapa completamente antes de interacciones
+  map.on('load', () => {
+    console.log('Mapa cargado correctamente');
+  });
+</script>
+ 
+ 
+  <!-- Tus scripts originales -->
+  <script src="app.js" defer></script>
+  <script src="darkmode.js" defer></script>
+  
+  </script>
+  <script>
+       window.addEventListener('load', () => {
+      document.body.classList.add('fade-in');
+    });</script>
+  </script>
+</body>
+</html>
