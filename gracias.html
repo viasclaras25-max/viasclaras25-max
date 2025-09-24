@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comentario Enviado</title>
+  <style>
+    :root {
+      --base-color: #ffffff;
+      --text-color: #111528;
+      --primary-color: #3a435d;
+      --accent-color: #0071ff;
+      --hover-color: #9EF470;
+      --success-color: #80C41C;
+    }
+
+    body {
+      background-color: var(--base-color);
+      color: var(--text-color);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    .container {
+      text-align: center;
+      animation: fadeInUp 1s ease-out;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      color: var(--success-color);
+      margin-bottom: 20px;
+    }
+
+    button {
+      padding: 12px 24px;
+      font-size: 1rem;
+      background-color: var(--accent-color);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    button:hover {
+      background-color: var(--hover-color);
+      color: var(--text-color);
+      transform: scale(1.05);
+    }
+
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>✅ Comentario enviado</h1>
+    <link rel="stylesheet" href="profile.php">
+    <button onclick="history.back()">Volver a la página anterior</button>
+  </div>
+
+</body>
+</html>

@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Vias Claras|Restaurantes</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- MAPBOX -->
+  <link href="https://api.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.css" rel="stylesheet">
+  <script src="https://api.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.js"></script>
+  <link rel="shortcut icon" href="C:\Users\Estudiante\Documents\Viasclarasapp\proy.final\viasclaras_logo.png" type="image/x-icon">
+  <style>
+    body {
+      background: linear-gradient(135deg,#e8ebf3 0%,#f7fafc 100%);
+      font-family: 'Montserrat', Arial, sans-serif;
+      min-height: 100vh;
+      margin: 0;
+    }
+    .container-main {
+      max-width: 1200px;
+      margin: 48px auto 32px auto;
+      padding: 0 16px;
+    }
+    h2 {
+      font-size: 2.7rem;
+      color: #083679;
+      text-align: center;
+      font-weight: 800;
+      margin-bottom: 36px;
+      letter-spacing: .04em;
+      font-family: 'Montserrat', Arial, sans-serif;
+    }
+    .search-bar {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+    .search-bar input {
+      width: 100%;
+      max-width: 410px;
+      font-size: 1.1rem;
+      border-radius: 12px;
+      border: 1.5px solid #40A3CB;
+      padding: 14px 20px;
+      box-shadow: 0 2px 14px #40A3CB18;
+      outline: none;
+      transition: border .16s;
+      background: #fff;
+    }
+    .search-bar input:focus { border-color: #2DAEBF; }
+    .restaurants-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 38px;
+      margin-bottom: 30px;
+    }
+    .restaurant-card-glass {
+      background: linear-gradient(135deg, #083679 70%, #2DAEBF 100%);
+      border-radius: 22px;
+      box-shadow: 0 8px 40px #08367930, 0 2px 8px #40A3CB20;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      border: 2.2px solid #40A3CB;
+      min-width: 0;
+      min-height: 100px;
+    }
+    .card-media {
+      border-radius: 22px 22px 0 0;
+      overflow: hidden;
+    }
+    .card-content {
+      padding: 28px 20px 20px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 18px;
+      background: rgba(64,163,203, 0.07);
+      min-height: 210px;
+    }
+    .card-content h3 {
+      margin: 0 0 8px 0;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: 1.35rem;
+      color: #fff;
+      letter-spacing: .04em;
+      text-align: center;
+      line-height: 1.3;
+      text-shadow: 0 1px 10px #08367980;
+    }
+    .rest-nombre {
+      margin: 0 0 12px 0;
+      font-size: 1.13rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+      color: #80C41C;
+      background: #fff;
+      padding: 7px 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 7px #40A3CB20;
+      display: inline-block;
+    }
+    .mini-map {
+      width: 100%;
+      border-radius: 14px;
+      margin-bottom: 10px;
+      min-height: 120px;
+    }
+    .mini-map > div, .mini-map canvas {
+      border-radius: 14px;
+    }
+    .restaurant-btn-fancy {
+      background: linear-gradient(90deg,#80C41C 10%,#2DAEBF 90%);
+      color: #fff;
+      text-align: center;
+      padding: 13px 0;
+      border-radius: 12px;
+      font-family: 'Montserrat',sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+      text-decoration: none;
+      box-shadow: 0 2px 18px #80C41C10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      border: none;
+      outline: none;
+      width: 100%;
+      margin-top: 8px;
+      cursor: pointer;
+      transition: none;
+      letter-spacing: .01em;
+    }
+    .restaurant-btn-fancy svg { vertical-align: middle; }
+    @media (max-width: 900px) {
+      .restaurants-list { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 650px) {
+      .container-main { padding: 0 1vw;}
+      .restaurants-list {grid-template-columns: 1fr;}
+      .card-content {padding: 16px 7px 10px 7px;}
+    }
+  </style>
+</head>
+<body>
+  <a href="escuelas.html" class="back-btn">
+  <span class="glass-bg">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 22">
+      <path d="M13.95 17.78a1 1 0 0 1-1.41 0l-5.66-5.66a2 2 0 0 1 0-2.83l5.66-5.66a1 1 0 0 1 1.41 1.41L8.7 11l5.25 5.25a1 1 0 0 1 0 1.41z"/>
+    </svg>
+  </span>
+</a>
+
+<style>
+.back-btn {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border: none;
+  background: none;
+  padding: 0;
+  transition: transform .17s cubic-bezier(.4,2,.2,1);
+}
+.back-btn:active {
+  transform: scale(.96);
+}
+.glass-bg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(23, 55, 121, 0.22);
+  box-shadow: 0 4px 16px 0 rgba(8, 54, 121, 0.10), 0 1.5px 8px 0 rgba(45, 174, 191, 0.12);
+  backdrop-filter: blur(7px) saturate(140%);
+  -webkit-backdrop-filter: blur(7px) saturate(140%);
+  border: 1.7px solid rgba(64, 163, 203, 0.13);
+  transition: background .19s, box-shadow .21s;
+  position: relative;
+  overflow: hidden;
+}
+.glass-bg::after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 9px;
+  left: 8px;
+  width: 24px;
+  height: 10px;
+  background: linear-gradient(90deg, #2DAEBF88 10%, #80C41C99 90%);
+  border-radius: 12px;
+  opacity: 0.32;
+  filter: blur(2.5px);
+  pointer-events: none;
+  z-index: 0;
+}
+.back-btn:hover .glass-bg {
+  background: rgba(45, 174, 191, 0.33);
+  box-shadow: 0 6px 24px 0 rgba(8, 54, 121, 0.19), 0 1.5px 10px 0 rgba(128, 196, 28, 0.18);
+}
+.back-btn svg {
+  position: relative;
+  z-index: 1;
+  width: 1.17em;
+  height: 1.17em;
+  fill: #fff;
+  filter: drop-shadow(0 2px 5px #08367945);
+  transition: fill .16s;
+}
+.back-btn:hover svg {
+  fill: #80C41C;
+}
+</style>
+
+  <div class="container-main">
+    <h2>Restaurantes Más Cercanos a Instituciones</h2>
+    <div class="search-bar">
+      <input type="text" id="searchInput" placeholder="Buscar institución...">
+    </div>
+    <div class="restaurants-list" id="restaurantes-list">
+
+  <!-- 1 -->
+<div class="restaurant-card-glass" data-place="Terminal de Transporte">
+  <div class="card-media">
+    <iframe width="100%" height="170" style="border:0; border-radius: 18px 18px 0 0;" loading="lazy"
+      allowfullscreen referrerpolicy="no-referrer-when-downgrade"
+      src="https://www.google.com/maps?q=&layer=c&cbll=8.104401123884834,-80.97403107662069&cbp=11,0,0,0,0&z=18&output=svembed"></iframe>
+  </div>
+  <div class="card-content">
+    <h3>Terminal de Transporte</h3>
+    <div class="rest-nombre">Little Caesars Pizza</div>
+    <div class="mini-map"></div>
+    <button class="restaurant-btn-fancy">Calcular Ruta</button>
+  </div>
+</div>
+<!-- 2 -->
+<div class="restaurant-card-glass" data-place="Universidad de Panamá">
+  <div class="card-media">
+    <iframe width="100%" height="170" style="border:0; border-radius: 18px 18px 0 0;" loading="lazy"
+      allowfullscreen referrerpolicy="no-referrer-when-downgrade"
+      src="https://www.google.com/maps?q=&layer=c&cbll=8.116097494896565,-80.96806657044205&cbp=11,0,0,0,0&z=18&output=svembed"></iframe>
+  </div>
+  <div class="card-content">
+    <h3>Universidad de Panamá</h3>
+    <div class="rest-nombre">Bokao's</div>
+    <div class="mini-map"></div>
+    <button class="restaurant-btn-fancy">Calcular Ruta</button>
+  </div>
+</div>
+<!-- 3 -->
+<div class="restaurant-card-glass" data-place="Universidad Tecnológica de Panamá">
+  <div class="card-media">
+    <iframe width="100%" height="170" style="border:0; border-radius: 18px 18px 0 0;" loading="lazy"
+      allowfullscreen referrerpolicy="no-referrer-when-downgrade"
+      src="https://www.google.com/maps?q=&layer=c&cbll=8.074858651340213,-80.93268965503547&cbp=11,0,0,0,0&z=18&output=svembed"></iframe>
+  </div>
+  <div class="card-content">
+    <h3>Universidad Tecnológica de Panamá</h3>
+    <div class="rest-nombre">GROOT'S KITCHEN RESTAURANT</div>
+    <div class="mini-map"></div>
+    <button class="restaurant-btn-fancy">Calcular Ruta</button>
+  </div>
+</div>
+<!-- 4 -->
+<div class="restaurant-card-glass" data-place="Universidad Especializada de las Américas">
+  <div class="card-media">
+    <iframe width="100%" height="170" style="border:0; border-radius: 18px 18px 0 0;" loading="lazy"
+      allowfullscreen referrerpolicy="no-referrer-when-downgrade"
+      src="https://www.google.com/maps?q=&layer=c&cbll=8.078402937330493,-80.97914401706898&cbp=11,0,0,0,0&z=18&output=svembed"></iframe>
+  </div>
+  <div class="card-content">
+    <h3>Universidad Especializada de las Américas</h3>
+    <div class="rest-nombre">POLLOS LOCOS</div>
+    <div class="mini-map"></div>
+    <button class="restaurant-btn-fancy">Calcular Ruta</button>
+  </div>
+</div>
+<!-- 10 -->
+<div class="restaurant-card-glass" data-place="Oteima">
+  <div class="card-media">
+    <iframe width="100%" height="170" style="border:0; border-radius: 18px 18px 0 0;" loading="lazy"
+      allowfullscreen referrerpolicy="no-referrer-when-downgrade"
+      src="https://www.google.com/maps?q=&layer=c&cbll=8.114092394880508,-80.96899851901473&cbp=11,0,0,0,0&z=18&output=svembed"></iframe>
+  </div>
+  <div class="card-content">
+    <h3>Oteima</h3>
+    <div class="rest-nombre">Cafetin Santiago Veraguas</div>
+    <div class="mini-map"></div>
+    <button class="restaurant-btn-fancy">Calcular Ruta</button>
+  </div>
+</div>
+<!-- 11 -->
+<div class="restaurant-card-glass" data-place="USMA">
+  <div class="card-media">
+    <iframe width="100%" height="170" style="border:0; border-radius: 18px 18px 0 0;" loading="lazy"
+      allowfullscreen referrerpolicy="no-referrer-when-downgrade"
+      src="https://www.google.com/maps?q=&layer=c&cbll=8.098314210140447,-80.97184568770344&cbp=11,0,0,0,0&z=18&output=svembed"></iframe>
+  </div>
+  <div class="card-content">
+    <h3>USMA</h3>
+    <div class="rest-nombre">Carolina Premiun Gourmet Santiago</div>
+    <div class="mini-map"></div>
+    <button class="restaurant-btn-fancy">Calcular Ruta</button>
+  </div>
+</div>
+<!-- 12 -->
+<div class="restaurant-card-glass" data-place="Instituto Superior J.D.A.">
+  <div class="card-media">
+    <iframe width="100%" height="170" style="border:0; border-radius: 18px 18px 0 0;" loading="lazy"
+      allowfullscreen referrerpolicy="no-referrer-when-downgrade"
+      src="https://www.google.com/maps?q=&layer=c&cbll=8.101812494697796,-80.97760979836947&cbp=11,0,0,0,0&z=18&output=svembed"></iframe>
+  </div>
+  <div class="card-content">
+    <h3>Instituto Superior J.D.A.</h3>
+    <div class="rest-nombre">Restaurante Pulcinella Pasta e Pizza</div>
+    <div class="mini-map"></div>
+    <button class="restaurant-btn-fancy">Calcular Ruta</button>
+  </div>
+</div>
+<!-- 13 -->
+<div class="restaurant-card-glass" data-place="Belisario Villar">
+  <div class="card-media">
+    <iframe width="100%" height="170" style="border:0; border-radius: 18px 18px 0 0;" loading="lazy"
+      allowfullscreen referrerpolicy="no-referrer-when-downgrade"
+      src="https://www.google.com/maps?q=&layer=c&cbll=8.11991038379526,-80.96601034370661&cbp=11,0,0,0,0&z=18&output=svembed"></iframe>
+  </div>
+  <div class="card-content">
+    <h3>Belisario Villar</h3>
+    <div class="rest-nombre">Marhaba</div>
+    <div class="mini-map"></div>
+    <button class="restaurant-btn-fancy">Calcular Ruta</button>
+  </div>
+</div>
+<!-- 14 -->
+<div class="restaurant-card-glass" data-place="Escuela Normal J.D.A.">
+  <div class="card-media">
+    <iframe width="100%" height="170" style="border:0; border-radius: 18px 18px 0 0;" loading="lazy"
+      allowfullscreen referrerpolicy="no-referrer-when-downgrade"
+      src="https://www.google.com/maps?q=&layer=c&cbll=8.101812494697796,-80.97760979836947&cbp=11,0,0,0,0&z=18&output=svembed"></iframe>
+  </div>
+  <div class="card-content">
+    <h3>Escuela Normal J.D.A.</h3>
+    <div class="rest-nombre">Restaurante Pulcinella Pasta e Pizza</div>
+    <div class="mini-map"></div>
+    <button class="restaurant-btn-fancy">Calcular Ruta</button>
+  </div>
+</div>
+<!-- 15 -->
+<div class="restaurant-card-glass" data-place="Centro Supérate FSBV">
+  <div class="card-media">
+    <iframe width="100%" height="170" style="border:0; border-radius: 18px 18px 0 0;" loading="lazy"
+      allowfullscreen referrerpolicy="no-referrer-when-downgrade"
+      src="https://www.google.com/maps?q=&layer=c&cbll=8.122131416910028,-80.96530774928387&cbp=11,0,0,0,0&z=18&output=svembed"></iframe>
+  </div>
+  <div class="card-content">
+    <h3>Centro Supérate FSBV</h3>
+    <div class="rest-nombre">Lo Que Tu Quieras Street Food</div>
+    <div class="mini-map"></div>
+    <button class="restaurant-btn-fancy">Calcular Ruta</button>
+  </div>
+</div>
+    </div>
+  </div>
+  <script>
+    // Función para normalizar nombres y generar IDs seguros
+    function normalizarId(texto) {
+      return texto
+        .toLowerCase()
+        .replace(/á/g, "a").replace(/é/g, "e").replace(/í/g, "i")
+        .replace(/ó/g, "o").replace(/ú/g, "u").replace(/ñ/g, "n")
+        .replace(/\s+/g, "-") // espacios a guiones
+        .replace(/[^a-z0-9\-]/g, "") // elimina cualquier caracter raro excepto guion
+        .replace(/\-+/g, "-"); // múltiple guión a uno solo
+    }
+
+    mapboxgl.accessToken = 'pk.eyJ1IjoibWFyaWkyMyIsImEiOiJjbTFhM2Q0OG4wODJlMnRvbTQ4a2M3anc0In0.qJTjB1HweqzdnslPp6ocQw';
+
+    function iniciarMapas() {
+      document.querySelectorAll('.restaurant-card-glass').forEach(card => {
+        // El nombre de la institución debe estar en el h3
+        const h3 = card.querySelector("h3");
+        if (!h3) return;
+        const nombreInst = h3.textContent.trim();
+        const safeId = "mapbox-" + normalizarId(nombreInst);
+
+        // Busca o asigna el ID correcto al contenedor del mapa
+        let mapDiv = card.querySelector('.mini-map');
+        if (!mapDiv) return;
+        mapDiv.id = safeId;
+
+        // Botón de calcular ruta
+        const btn = card.querySelector('.restaurant-btn-fancy');
+        if (!btn) return;
+
+        // Coordenadas del restaurante (desde el src del iframe)
+        const iframe = card.querySelector('iframe');
+        let match = iframe && iframe.src.match(/cbll=([-\d.]+),([-\d.]+)/);
+        if (!match) return;
+        const lat = parseFloat(match[1]), lng = parseFloat(match[2]);
+
+        // Limpiar contenedor mapa (por si hay recarga)
+        mapDiv.innerHTML = "";
+
+        // Inicializar Mapbox
+        const map = new mapboxgl.Map({
+          container: safeId,
+          style: 'mapbox://styles/mapbox/streets-v12',
+          center: [lng, lat],
+          zoom: 17,
+          interactive: true
+        });
+        new mapboxgl.Marker({ color: "#80C41C" })
+          .setLngLat([lng, lat])
+          .addTo(map);
+
+        // Botón Calcular Ruta
+        btn.onclick = function () {
+          if (!navigator.geolocation) {
+            alert('Tu navegador no soporta geolocalización');
+            return;
+          }
+          navigator.geolocation.getCurrentPosition(function (pos) {
+            const userLng = pos.coords.longitude;
+            const userLat = pos.coords.latitude;
+            if (map.getSource('route')) {
+              map.removeLayer('route');
+              map.removeSource('route');
+            }
+            const url = `https://api.mapbox.com/directions/v5/mapbox/driving/${userLng},${userLat};${lng},${lat}?geometries=geojson&access_token=${mapboxgl.accessToken}`;
+            fetch(url)
+              .then(resp => resp.json())
+              .then(data => {
+                if (!data.routes.length) return alert('No se pudo calcular la ruta.');
+                const route = data.routes[0].geometry;
+                map.addSource('route', {
+                  type: 'geojson',
+                  data: {
+                    type: 'Feature',
+                    properties: {},
+                    geometry: route
+                  }
+                });
+                map.addLayer({
+                  id: 'route',
+                  type: 'line',
+                  source: 'route',
+                  layout: { 'line-join': 'round', 'line-cap': 'round' },
+                  paint: { 'line-color': '#2DAEBF', 'line-width': 6, 'line-opacity': 0.92 }
+                });
+                const coords = route.coordinates;
+                const bounds = coords.reduce(function (bounds, coord) {
+                  return bounds.extend(coord);
+                }, new mapboxgl.LngLatBounds(coords[0], coords[0]));
+                map.fitBounds(bounds, { padding: 60 });
+              })
+              .catch(() => alert('Ruta Calculada'));
+          }, () => alert('No pudimos obtener tu ubicación.'));
+        };
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', iniciarMapas);
+
+    // Buscador funcional (no necesita cambios)
+    document.getElementById('searchInput').addEventListener('input', function () {
+      const value = this.value.trim().toLowerCase();
+      document.querySelectorAll('.restaurant-card-glass').forEach(card => {
+        const place = card.getAttribute('data-place').toLowerCase();
+        if (place.includes(value) || value === '') {
+          card.style.display = '';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    });
+  </script>
+</body>
+</html>

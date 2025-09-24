@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Vias Claras|Sobre Nosotros</title>  
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  <link rel="shortcut icon" href="C:\Users\Estudiante\Documents\Viasclarasapp\proy.final\viasclaras_logo.png" type="image/x-icon">
+</head>
+  <!-- Mapbox CSS y JS -->
+  <style>
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background-image: url('fondd.png'); /* Cambia esta ruta por la real */
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+   
+    h1 {
+      font-size: 3.5em;
+      color: #000000;
+      margin-bottom: 80px;
+      text-align: center;
+      text-shadow: 1px 1px 2px #fff;
+    }
+
+    .team-level {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 80px;
+      margin-bottom: 100px;
+      width: 100%;
+      max-width: 1600px;
+    }
+
+    .member-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .member {
+      position: relative;
+      width: 230px;
+      height: 230px;
+      border-radius: 50%;
+      overflow: hidden;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #fff;
+    }
+
+    .member:hover {
+      transform: scale(1.08);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .member img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+      z-index: 1;
+    }
+
+    .member-info {
+      position: absolute;
+      bottom: -100%;
+      width: 100%;
+      height: 100%;
+      background: rgba(93, 161, 209, 0.93);
+      color: #fff;
+      padding: 20px;
+      box-sizing: border-box;
+      text-align: center;
+      transition: bottom 0.5s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-radius: 50%;
+      z-index: 2;
+    }
+
+    .member:hover .member-info {
+      bottom: 0;
+    }
+
+    .member-info h4 {
+      margin: 0 0 10px;
+      font-size: 1.4em;
+    }
+
+    .member-info p {
+      margin: 4px 0;
+      font-size: 0.95em;
+      line-height: 1.3;
+    }
+
+    .title {
+      font-size: 1.8em;
+      font-weight: bold;
+      color: #004080;
+      margin-bottom: 40px;
+      width: 100%;
+      text-align: center;
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.5em;
+      }
+      .member {
+        width: 160px;
+        height: 160px;
+      }
+      .member-info h4 {
+        font-size: 1.1em;
+      }
+      .member-info p {
+        font-size: 0.8em;
+      }
+    }
+
+    .info-section {
+      background: rgba(255, 255, 255, 0.95);
+      margin: 60px auto;
+      padding: 50px 30px;
+      border-radius: 25px;
+      max-width: 1100px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+      font-family: 'Quicksand', sans-serif;
+      animation: fadeIn 1.2s ease-in-out;
+    }
+
+    .info-section h2 {
+      text-align: center;
+      color: #07111c;
+      font-size: 2.8em;
+      margin-bottom: 20px;
+    }
+
+    .info-section p {
+      font-size: 1.15em;
+      line-height: 1.8;
+      color: #444;
+      text-align: center;
+      max-width: 900px;
+      margin: 0 auto 30px;
+    }
+
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .info-card {
+      background: #bdd6e7;
+      border-radius: 20px;
+      padding: 30px;
+      width: 300px;
+      text-align: center;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+      cursor: pointer;
+    }
+
+    .info-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    .info-card .material-icons {
+      font-size: 50px;
+      color: #012c60;
+      margin-bottom: 15px;
+      transition: transform 0.3s ease;
+    }
+
+    .info-card:hover .material-icons {
+      transform: rotate(8deg) scale(1.1);
+    }
+
+    .info-card h3 {
+      color: #4673c1;
+      font-size: 1.4em;
+      margin-bottom: 10px;
+    }
+
+    .info-card p {
+      font-size: 1em;
+      color: #555;
+    }
+
+    .contact-btn {
+      display: inline-block;
+      margin: 40px auto 0;
+      background: #1da0e7;
+      color: #94c3de;
+      font-size: 1.1em;
+      padding: 14px 30px;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: background 0.3s ease, transform 0.2s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .contact-btn:hover {
+      background: #7a5bd3;
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 768px) {
+      .card-container {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Apodos estilos */
+    .nickname {
+      margin-top: 12px;
+      background: #ffffff;
+      color: #2a4d8f;
+      padding: 6px 16px;
+      font-size: 0.95em;
+      border-radius: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+      text-align: center;
+      font-weight: 600;
+      display: inline-block;
+      transition: all 0.3s ease;
+    }
+
+    .member-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .member:hover + .nickname,
+    .member-container:hover .nickname {
+      background: #e4edff;
+      color: #1c3d80;
+      transform: scale(1.05);
+    }
+  </style>
+</head>
+<body>
+ <a href="file:///C:/xampp/htdocs/proy.final/profile.php.html" class="back-btn">
+  <span class="glass-bg">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 22">
+      <path d="M13.95 17.78a1 1 0 0 1-1.41 0l-5.66-5.66a2 2 0 0 1 0-2.83l5.66-5.66a1 1 0 0 1 1.41 1.41L8.7 11l5.25 5.25a1 1 0 0 1 0 1.41z"/>
+    </svg>
+  </span>
+</a>
+
+<style>
+.back-btn {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border: none;
+  background: none;
+  padding: 0;
+  transition: transform .17s cubic-bezier(.4,2,.2,1);
+}
+.back-btn:active {
+  transform: scale(.96);
+}
+.glass-bg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(23, 55, 121, 0.22);
+  box-shadow: 0 4px 16px 0 rgba(8, 54, 121, 0.10), 0 1.5px 8px 0 rgba(45, 174, 191, 0.12);
+  backdrop-filter: blur(7px) saturate(140%);
+  -webkit-backdrop-filter: blur(7px) saturate(140%);
+  border: 1.7px solid rgba(64, 163, 203, 0.13);
+  transition: background .19s, box-shadow .21s;
+  position: relative;
+  overflow: hidden;
+}
+.glass-bg::after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 9px;
+  left: 8px;
+  width: 24px;
+  height: 10px;
+  background: linear-gradient(90deg, #2DAEBF88 10%, #80C41C99 90%);
+  border-radius: 12px;
+  opacity: 0.32;
+  filter: blur(2.5px);
+  pointer-events: none;
+  z-index: 0;
+}
+.back-btn:hover .glass-bg {
+  background: rgba(45, 174, 191, 0.33);
+  box-shadow: 0 6px 24px 0 rgba(8, 54, 121, 0.19), 0 1.5px 10px 0 rgba(128, 196, 28, 0.18);
+}
+.back-btn svg {
+  position: relative;
+  z-index: 1;
+  width: 1.17em;
+  height: 1.17em;
+  fill: #fff;
+  filter: drop-shadow(0 2px 5px #08367945);
+  transition: fill .16s;
+}
+.back-btn:hover svg {
+  fill: #80C41C;
+}
+</style>
+
+ <div class="info-section">
+  <h2>Acerca de nosotros</h2>
+  <p>
+    Te ayudamos a encontrar las mejores <strong>rutas y costos de transporte</strong> para que llegues a tu destino sin complicaciones. Ya sea que vayas al colegio, universidad y sus restaurantes cercanos, ¡aquí encuentras el camino!
+  </p>
+
+  <div class="card-container">
+    <div class="info-card">
+      <span class="material-icons">flag</span>
+      <h3>Misión</h3>
+      <p>"Brindar a los estudiantes una herramienta confiable y accesible que les permita conocer sus opciones de transporte, reduciendo tiempos, costos y riesgos en su trayecto hacia la educación, y asegurando que cada joven, sin importar su ubicación, pueda llegar a su centro educativo con seguridad y confianza."</p>
+    </div>
+    <div class="info-card">
+      <span class="material-icons">visibility</span>
+      <h3>Visión</h3>
+      <p>Ser tu guía de transporte favorita en todo Santiago y acompañarte en cada ruta.</p>
+    </div>
+    <div class="info-card">
+      <span class="material-icons">directions_bus</span>
+      <h3>Ofrecemos</h3>
+      <p>Tarifas actualizadas, rutas seguras y mapas.</p>
+    </div>
+    <div class="info-card">
+      <span class="material-icons">favorite</span>
+      <h3>Compromiso</h3>
+      <p>Estamos contigo, desde la parada del bus hasta tu destino final.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- LÍDER -->
+<div class="title">Líder del Proyecto</div>
+<div class="team-level">
+  <div class="member-container">
+    <div class="member">
+      <img src="nath.jpg" alt="Natalie Cabrera" />
+      <div class="member-info">
+        <h4>Natalie Cabrera</h4>
+        <p>Fundadora/Líder</p>
+        <p>Estudió en:</p>
+        <p>Escuela Normal Juan Demóstenes Arosemena</p>
+      </div>
+    </div>
+    <div class="nickname">Nathalie U.💡</div>
+  </div>
+</div>
+
+<!-- DISEÑADORAS -->
+<div class="title">Diseñadoras</div>
+<div class="team-level">
+  <div class="member-container">
+    <div class="member">
+      <img src="Naza.jpg" alt="Nazareth Araúz" />
+      <div class="member-info">
+        <h4>Nazareth Araúz</h4>
+        <p>Diseñadora</p>
+        <p>Estudió en:</p>
+        <p>Colegio Secundario La Peña</p>
+      </div>
+    </div>
+    <div class="nickname">Nazareth</div>
+  </div>
+
+  <div class="member-container">
+    <div class="member">
+      <img src="gloria.jpg" alt="Gloria Araúz" />
+      <div class="member-info">
+        <h4>Gloria Araúz</h4>
+        <p>Diseñadora</p>
+        <p>Estudió en:</p>
+        <p>Colegio Secundario La Peña</p>
+      </div>
+    </div>
+    <div class="nickname">Gloria</div>
+  </div>
+
+  <div class="member-container">
+    <div class="member">
+      <img src="Nay.jpg" alt="Nayreth Pitano" />
+      <div class="member-info">
+        <h4>Nayreth Pitano</h4>
+        <p>Diseñadora</p>
+        <p>Estudió en:</p>
+        <p>Instituto Urracá</p>
+      </div>
+    </div>
+    <div class="nickname">Nayreth</div>
+  </div>
+</div>
+
+<div class="team-level">
+  <div class="member-container">
+    <div class="member">
+      <img src="Mari.jpg" alt="Mariangel Cartas" />
+      <div class="member-info">
+        <h4>Mariangel Cartas</h4>
+        <p>Diseñadora</p>
+        <p>Estudió en:</p>
+        <p>Colegio Belisario Villar Pérez</p>
+      </div>
+    </div>
+    <div class="nickname">Mariangel</div>
+  </div>
+
+  <div class="member-container">
+    <div class="member">
+      <img src="ruth.png" alt="Ruth Abrego" />
+      <div class="member-info">
+        <h4>Ruth Abrego</h4>
+        <p>Diseñadora</p>
+        <p>Estudió en:</p>
+        <p>Instituto Urracá</p>
+      </div>
+    </div>
+    <div class="nickname">Ruth M.</div>
+  </div>
+</div>
+
+<!-- PROGRAMADORES -->
+<div class="title">Programadores</div>
+<div class="team-level">
+  <div class="member-container">
+    <div class="member">
+      <img src="Yosely.jpg" alt="Yosely Samaniego" />
+      <div class="member-info">
+        <h4>Yosely Samaniego</h4>
+        <p>Programadora</p>
+        <p>Estudió en:</p>
+        <p>Colegio Belisario Villar Pérez</p>
+      </div>
+    </div>
+    <div class="nickname">Yosely</div>
+  </div>
+
+  <div class="member-container">
+    <div class="member">
+      <img src="lisney.jpg" alt="Lisneirys Gaitán" />
+      <div class="member-info">
+        <h4>Lisneirys Gaitán</h4>
+        <p>Programadora</p>
+        <p>Estudió en:</p>
+        <p>Instituto Urracá</p>
+      </div>
+    </div>
+    <div class="nickname">Lisneyris</div>
+  </div>
+
+  <div class="member-container">
+    <div class="member">
+      <img src="David.jpg" alt="David Munera" />
+      <div class="member-info">
+        <h4>David Munera</h4>
+        <p>Programador</p>
+        <p>Estudió en:</p>
+        <p>Instituto Urracá</p>
+      </div>
+    </div>
+    <div class="nickname">David</div>
+  </div>
+</div>
+
+<div class="team-level">
+  <div class="member-container">
+    <div class="member">
+      <img src="Bladi.jpg" alt="Bladimir Rodríguez" />
+      <div class="member-info">
+        <h4>Bladimir Rodríguez</h4>
+        <p>Programador</p>
+        <p>Estudió en:</p>
+        <p>Instituto Profesional Omar Torrijos Herrera</p>
+      </div>
+    </div>
+    <div class="nickname">Bladimir</div>
+  </div>
+</div>
+
+</body>
+</html>
