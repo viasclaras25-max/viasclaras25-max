@@ -152,88 +152,166 @@
             }
         }
     </style>
-      <style>
-    .container {
-        margin-left: 20px; /* Para dejar espacio para la barra de navegación */
-        width: calc(100% - 100px); /* Ajustar el ancho del contenedor */
-        padding: 20px;
-        background: #fff;
-        border-radius: 8px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        flex: 1;}
+          <style>
+        .container {
+            margin-left: 20px; /* Para dejar espacio para la barra de navegación */
+            width: calc(100% - 100px); /* Ajustar el ancho del contenedor */
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            flex: 1;
+        }
 
-    h1, h2 {
-        color: #333;
-    }
+        h1, h2 {
+            color: #333;
+        }
 
-    h2 {
-        margin-top: 0;
-    }
+        h2 {
+            margin-top: 0;
+        }
 
-    p, ul, ol {
-        margin: 10px 0;
-    }
+        p, ul, ol {
+            margin: 10px 0;
+        }
 
-    .form-group {
-        margin-bottom: 15px;
-    }
+        .form-group {
+            margin-bottom: 15px;
+        }
 
-    .form-group label {
-        display: block;
-        margin-bottom: 5px;
-        color: #555;
-    }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
 
-    .form-group input, .form-group textarea {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #40A3CB;
-        border-radius: 4px;
-        box-sizing: border-box;
-    }
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #40A3CB;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
 
-    .form-group input:focus, .form-group textarea:focus {
-        border-color: #0099CC;
-        outline: none;
-    }
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: #0099CC;
+            outline: none;
+        }
 
-    button {
-        background-color: #0099CC;
-        color: #fff;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 16px;
-    }
+        button {
+            background-color: #0099CC;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            -webkit-tap-highlight-color: transparent; /* Elimina el resaltado azul en móviles */
+        }
 
-    button:hover {
-        background-color: #0077aa;
-    }
+        button:hover {
+            background-color: #0077aa;
+        }
 
+        .contact-info, .form-section {
+            margin-bottom: 20px;
+        }
 
-    .contact-info, .form-section {
-        margin-bottom: 20px;
-    }
+        .contact-info p {
+            margin: 5px 0;
+        }
 
-    .contact-info p {
-        margin: 5px 0;
-    }
+        .contact-info ol {
+            margin: 5px 0;
+            padding-left: 20px;
+        }
 
-    .contact-info ol {
-        margin: 5px 0;
-        padding-left: 20px;
-    }
+        .contact-info strong {
+            color: #0099CC;
+        }
 
-    .contact-info strong {
-        color: #0099CC;
-    }
+        .form-section h2 {
+            border-bottom: 2px solid #0099CC;
+            padding-bottom: 10px;
+        }
 
-    .form-section h2 {
-        border-bottom: 2px solid #0099CC;
-        padding-bottom: 10px;
-    }
-</style>   
+        /* Media Queries para dispositivos móviles */
+        @media (max-width: 768px) {
+            .container {
+                margin-left: 0; /* Elimina el margen lateral en móviles */
+                width: 100%; /* Ocupa todo el ancho disponible */
+                padding: 15px; /* Reduce el padding */
+                box-sizing: border-box; /* Incluye padding en el cálculo del ancho */
+            }
+            
+            h1 {
+                font-size: 1.5rem; /* Reduce el tamaño de fuente del título */
+            }
+            
+            h2 {
+                font-size: 1.3rem; /* Reduce el tamaño de fuente de los subtítulos */
+            }
+            
+            .form-group input, .form-group textarea {
+                padding: 12px; /* Aumenta ligeramente el padding para mejor usabilidad táctil */
+                font-size: 16px; /* Evita el zoom automático en iOS */
+            }
+            
+            button {
+                width: 100%; /* Botón ocupa todo el ancho en móviles */
+                padding: 12px; /* Aumenta el padding para mejor usabilidad táctil */
+                font-size: 18px; /* Texto más grande para móviles */
+            }
+            
+            .contact-info ol {
+                padding-left: 15px; /* Reduce el padding de las listas */
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 10px; /* Reduce aún más el padding en pantallas pequeñas */
+                border-radius: 0; /* Elimina bordes redondeados para aprovechar espacio */
+                box-shadow: none; /* Elimina sombra para una apariencia más plana */
+            }
+            
+            h1 {
+                font-size: 1.3rem;
+            }
+            
+            h2 {
+                font-size: 1.1rem;
+            }
+            
+            .form-section h2 {
+                padding-bottom: 8px;
+            }
+            
+            .contact-info, .form-section {
+                margin-bottom: 15px;
+            }
+        }
+        
+        /* Para pantallas muy pequeñas (como móviles en orientación vertical) */
+        @media (max-width: 360px) {
+            h1 {
+                font-size: 1.2rem;
+            }
+            
+            h2 {
+                font-size: 1rem;
+            }
+            
+            .form-group {
+                margin-bottom: 12px;
+            }
+            
+            button {
+                padding: 10px;
+                font-size: 16px;
+            }
+        }
+    </style>
 </div>
   
     <div class="container">
