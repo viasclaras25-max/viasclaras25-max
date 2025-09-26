@@ -68,42 +68,90 @@
     <span>Sobre Nosotros</span>
   </a>
 </div>
-<style>
-.center-btn-container-horizontal {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin-top: 60px; /* Puedes ajustar este valor según prefieras */
-}
-.btn-sobre {
-  display: inline-block;
-  background: linear-gradient(90deg, #083679 70%, #2DAEBF 100%);
-  color: #fff;
-  font-family: 'Montserrat', Arial, sans-serif;
-  font-weight: 600;
-  font-size: 1.08rem;
-  padding: 15px 30px;
-  border-radius: 13px;
-  text-decoration: none;
-  box-shadow: 0 3px 18px #08367915;
-  letter-spacing: .03em;
-  transition: background .19s, color .19s, box-shadow .18s, transform .15s;
-  border: none;
-  margin: 0 10px;
-  position: relative;
-  overflow: hidden;
-}
-.btn-sobre:hover {
-  background: linear-gradient(90deg, #2DAEBF 10%, #80C41C 90%);
-  color: #083679;
-  box-shadow: 0 6px 24px #2DAEBF18;
-  transform: translateY(-2px) scale(1.035);
-}
-.btn-sobre span {
-  position: relative;
-  z-index: 1;
-}
-</style>
+    <style>
+        .center-btn-container-horizontal {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-top: 60px; /* Puedes ajustar este valor según prefieras */
+        }
+        
+        .btn-sobre {
+            display: inline-block;
+            background: linear-gradient(90deg, #083679 70%, #2DAEBF 100%);
+            color: #fff;
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-weight: 600;
+            font-size: 1.08rem;
+            padding: 15px 30px;
+            border-radius: 13px;
+            text-decoration: none;
+            box-shadow: 0 3px 18px #08367915;
+            letter-spacing: .03em;
+            transition: background .19s, color .19s, box-shadow .18s, transform .15s;
+            border: none;
+            margin: 0 10px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent; /* Elimina el resaltado azul en móviles */
+        }
+        
+        .btn-sobre:hover {
+            background: linear-gradient(90deg, #2DAEBF 10%, #80C41C 90%);
+            color: #083679;
+            box-shadow: 0 6px 24px #2DAEBF18;
+            transform: translateY(-2px) scale(1.035);
+        }
+        
+        .btn-sobre:active {
+            transform: translateY(0) scale(0.98); /* Efecto de presionado para móviles */
+        }
+        
+        .btn-sobre span {
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Media Queries para dispositivos móviles */
+        @media (max-width: 768px) {
+            .center-btn-container-horizontal {
+                margin-top: 40px;
+                padding: 0 15px; /* Añade padding lateral para evitar que toque los bordes */
+            }
+            
+            .btn-sobre {
+                font-size: 1rem; /* Tamaño de fuente ligeramente más pequeño */
+                padding: 14px 28px; /* Padding ligeramente reducido */
+                width: 100%; /* Ocupa todo el ancho disponible */
+                max-width: 280px; /* Pero con un máximo para no ser demasiado ancho */
+                margin: 0 5px; /* Márgenes más pequeños */
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .center-btn-container-horizontal {
+                margin-top: 30px;
+            }
+            
+            .btn-sobre {
+                font-size: 0.95rem;
+                padding: 12px 24px;
+                max-width: 260px;
+                border-radius: 10px; /* Bordes ligeramente más pequeños */
+            }
+        }
+        
+        /* Para pantallas muy pequeñas (como móviles en orientación vertical) */
+        @media (max-width: 360px) {
+            .btn-sobre {
+                font-size: 0.9rem;
+                padding: 10px 20px;
+                max-width: 240px;
+            }
+        }
+    </style>
       <style>
     .container {
         margin-left: 20px; /* Para dejar espacio para la barra de navegación */
